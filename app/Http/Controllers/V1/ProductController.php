@@ -6,6 +6,7 @@ use App\Events\ProductEvent;
 use App\Models\V1\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\CreateProductJob;
 
 class ProductController extends Controller
 {
@@ -20,6 +21,10 @@ class ProductController extends Controller
             if ($request->type == "event")
             {
                 event(new ProductEvent(fake()->name(), fake()->numberBetween(1, 10)));
+            }
+            else {
+                CreateProductJob::dispatch(fake()->name(),
+                fake()->numberBetween(1, 10));
             }
 
             return response()->streamJson([
