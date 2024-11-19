@@ -11,9 +11,16 @@ class ProductController extends Controller
 {
     public function create(Request $request)
     {
+        $request->validate([
+            'type' => 'required|in:event,queue-job'
+        ]);
+
         try {
 
-            event(new ProductEvent(fake()->name(), fake()->numberBetween(1, 10)));
+            if ($request->type == "event")
+            {
+                event(new ProductEvent(fake()->name(), fake()->numberBetween(1, 10)));
+            }
 
             return response()->streamJson([
                 'message' => 'Product created successfully'
