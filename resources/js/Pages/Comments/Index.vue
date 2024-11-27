@@ -3,8 +3,14 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
 defineProps({
-    greeting: String
+    posts: Object
 });
+
+// Computed property to truncate the product title
+const truncateTitle = (title) => {
+    const maxLength = 70; // Maximum number of characters
+    return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
+};
 
 </script>
 
@@ -26,7 +32,9 @@ defineProps({
                     class="overflow-hidden bg-white shadow-sm sm:rounded-lg"
                 >
                     <div class="p-6 text-gray-900">
-                        {{ greeting }}
+                        <li v-for="post in posts" :key="post.id">
+                            {{ truncateTitle(post.body) }}
+                        </li>
                     </div>
                 </div>
             </div>
