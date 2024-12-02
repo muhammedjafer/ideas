@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\CommentIndexController;
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CommentIndexController;
+use App\Http\Controllers\CommentStoreController;
 
 Route::get('/', function () {
 
@@ -31,5 +32,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/comments', CommentIndexController::class)->name('comments.index');
+Route::post('/comments', CommentStoreController::class)->name('comments.store');
 
 require __DIR__.'/auth.php';
